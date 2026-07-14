@@ -1,436 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OtakuVerse — The Social OS for Anime & Manga Fans</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,900;1,900&family=Bangers&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OtakuVerse — Track. Discover. Read.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0B0B10;
+    --surface: #15151C;
+    --surface-2: #1C1C25;
+    --ink: #000000;
+    --violet: #7C5CFC;
+    --cyan: #22D3EE;
+    --text: #F1F1F4;
+    --text-muted: #87878F;
+    --green: #34D399;
+    --orange: #F59E0B;
+    --red: #F87171;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display { font-family: 'Anton', sans-serif; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.05; }
+  .mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: 1px; text-transform: uppercase; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1400px; width: 95%; margin: 0 auto; padding: 0 24px; }
+  .panel-edge { height: 10px; background: repeating-linear-gradient(90deg, var(--ink) 0px, var(--ink) 28px, transparent 28px, transparent 40px); }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; max-width: 1400px; margin: 0 auto; }
+  .logo { font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: 1px; }
+  .logo span { color: var(--violet); }
+  
+  .hero { padding: 60px 0 80px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+  .eyebrow { font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 2px; color: var(--violet); margin-bottom: 18px; display: block; }
+  .hero h1 { font-size: clamp(38px, 5.4vw, 72px); margin-bottom: 20px; }
+  .hero h1 .accent { color: var(--cyan); }
+  .hero p.lede { font-size: 18px; color: var(--text-muted); max-width: 55ch; margin-bottom: 32px; line-height: 1.6; }
+  
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.15s ease; }
+  .btn-primary { background: var(--violet); color: white; box-shadow: 0 10px 30px rgba(124,92,252,0.3); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.18); }
+
+  .phone-frame { justify-self: center; width: 300px; background: var(--ink); border-radius: 34px; padding: 10px; box-shadow: 0 30px 80px -20px rgba(124,92,252,0.35); }
+  .phone-screen { background: var(--bg); border-radius: 24px; overflow: hidden; height: 600px; display: flex; flex-direction: column; }
+  .mock-cover { height: 190px; background: radial-gradient(circle at 30% 20%, rgba(124,92,252,0.55), transparent 55%), #1a1a24; position: relative; }
+  .mock-body { padding: 16px; flex: 1; }
+  .mock-title { font-family: 'Anton'; font-size: 20px; }
+  .mock-cta { background: var(--violet); color: white; text-align: center; padding: 11px; border-radius: 9px; font-size: 12px; font-weight: 700; margin: 14px 0; }
+  .mock-chapter { background: var(--surface); border-radius: 10px; padding: 10px; display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px; }
+
+  section { padding: 80px 0; }
+  .section-title { font-size: clamp(28px, 3.4vw, 40px); margin-bottom: 44px; line-height: 1.1; }
+
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
+  .feature-card { background: var(--surface); padding: 40px 30px; }
+  .feature-card h3 { font-size: 22px; margin-bottom: 12px; text-transform: none; font-family: 'Inter'; }
+
+  .why { background: var(--surface); border-radius: 20px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .status-item { background: var(--surface-2); border-radius: 12px; padding: 20px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 40px; }
+  .step { border-left: 3px solid var(--violet); padding-left: 20px; }
+  .step .num { font-family: 'Anton'; font-size: 34px; color: rgba(124,92,252,0.4); }
+
+  .faq { margin-top: 60px; }
+  .faq-item { background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+
+  footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 900px) {
+    .hero, .why, .steps, .feature-grid { grid-template-columns: 1fr; }
+    .phone-frame { width: 240px; margin-top: 40px; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- ─── HALFTONE LAYER ─── -->
-  <div class="halftone-bg" aria-hidden="true"></div>
+  <nav>
+    <div class="logo">Otaku<span>Verse</span></div>
+    <!-- Nav Download Button -->
+    <a href="{{ url_for('static', filename='downloads/otakuverse-v2.4.0.apk') }}" class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;" download>
+        ↓ Download APK
+    </a>
+  </nav>
 
-  <!-- ══════════════════════════════════════════
-       NAV
-  ══════════════════════════════════════════ -->
-  <header class="nav">
-    <nav class="nav__inner container">
-      <a href="#" class="nav__logo">OtakuVerse</a>
-      <ul class="nav__links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#creators">For Creators</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-      </ul>
-      <a href="#pricing" class="btn btn--primary">Get Started</a>
-      <button class="nav__burger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </nav>
-  </header>
-
-  <!-- ══════════════════════════════════════════
-       HERO
-  ══════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero__left">
-      <div class="accent-bar accent-bar--cyan" style="width:48px;height:12px;margin-bottom:2rem;"></div>
-      <h1 class="hero__title fade-in">The Social<br/>OS for Anime<br/>&amp; Manga Fans</h1>
-      <p class="hero__sub fade-in delay-1">
-        Unified tracking, live watch parties, creator economy tools, and AI-powered discovery—all in one place built for otaku.
-      </p>
-      <div class="hero__ctas fade-in delay-2">
-        <a href="#pricing" class="btn btn--primary btn--lg">Start Free Trial</a>
-        <a href="#features" class="btn btn--outline btn--lg">Watch Demo ▶</a>
-      </div>
-    </div>
-    <div class="hero__right">
-      <div class="hero__image-wrap">
-
-        <!-- ── MANGA PANEL BACKGROUND ── -->
-        <div class="hero__image">
-
-          <!-- SVG scene: anime-style character silhouette + speed lines + UI cards -->
-          <svg class="hero__svg" viewBox="0 0 620 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-
-            <!-- Speed lines radiating from center-right -->
-            <g class="speed-lines" opacity="0.18">
-              <line x1="620" y1="350" x2="0"   y2="80"  stroke="white" stroke-width="1.5"/>
-              <line x1="620" y1="350" x2="0"   y2="140" stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="0"   y2="210" stroke="white" stroke-width="1.5"/>
-              <line x1="620" y1="350" x2="0"   y2="280" stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="0"   y2="350" stroke="white" stroke-width="2"/>
-              <line x1="620" y1="350" x2="0"   y2="420" stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="0"   y2="490" stroke="white" stroke-width="1.5"/>
-              <line x1="620" y1="350" x2="0"   y2="560" stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="0"   y2="630" stroke="white" stroke-width="1.5"/>
-              <line x1="620" y1="350" x2="120" y2="700" stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="280" y2="700" stroke="white" stroke-width="1.5"/>
-              <line x1="620" y1="350" x2="440" y2="700" stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="310" y2="0"   stroke="white" stroke-width="1"/>
-              <line x1="620" y1="350" x2="460" y2="0"   stroke="white" stroke-width="1.5"/>
-            </g>
-
-            <!-- Halftone dots cluster (bottom-left) -->
-            <g opacity="0.22">
-              <circle cx="40"  cy="580" r="4" fill="white"/>
-              <circle cx="70"  cy="580" r="4" fill="white"/>
-              <circle cx="100" cy="580" r="4" fill="white"/>
-              <circle cx="130" cy="580" r="4" fill="white"/>
-              <circle cx="40"  cy="610" r="4" fill="white"/>
-              <circle cx="70"  cy="610" r="6" fill="white"/>
-              <circle cx="100" cy="610" r="6" fill="white"/>
-              <circle cx="130" cy="610" r="4" fill="white"/>
-              <circle cx="160" cy="610" r="3" fill="white"/>
-              <circle cx="40"  cy="640" r="3" fill="white"/>
-              <circle cx="70"  cy="640" r="5" fill="white"/>
-              <circle cx="100" cy="640" r="7" fill="white"/>
-              <circle cx="130" cy="640" r="5" fill="white"/>
-              <circle cx="160" cy="640" r="3" fill="white"/>
-              <circle cx="40"  cy="670" r="2" fill="white"/>
-              <circle cx="70"  cy="670" r="4" fill="white"/>
-              <circle cx="100" cy="670" r="5" fill="white"/>
-              <circle cx="130" cy="670" r="4" fill="white"/>
-            </g>
-
-            <!-- Manga character silhouette — stylised anime figure -->
-            <g class="char-silhouette">
-              <!-- Body glow -->
-              <ellipse cx="310" cy="490" rx="90" ry="20" fill="#FF3366" opacity="0.35" filter="url(#glow)"/>
-              <!-- Cape / coat flowing -->
-              <path d="M230,680 Q200,520 240,420 Q260,370 310,360 Q360,370 380,420 Q420,520 390,680 Q360,700 310,705 Q260,700 230,680Z"
-                    fill="#1A1A1A" opacity="0.92"/>
-              <!-- Cape highlights -->
-              <path d="M240,680 Q220,540 255,440 Q270,400 310,390"
-                    fill="none" stroke="#FF3366" stroke-width="2" opacity="0.6"/>
-              <!-- Torso -->
-              <rect x="272" y="310" width="76" height="100" rx="4" fill="#1A1A1A" opacity="0.95"/>
-              <!-- Belt -->
-              <rect x="268" y="395" width="84" height="14" rx="2" fill="#FF3366" opacity="0.9"/>
-              <!-- Neck -->
-              <rect x="298" y="278" width="24" height="36" rx="6" fill="#FFD0A0" opacity="0.9"/>
-              <!-- Head -->
-              <ellipse cx="310" cy="248" rx="52" ry="56" fill="#FFD0A0" opacity="0.95"/>
-              <!-- Hair top — spiky anime style -->
-              <path d="M258,220 Q265,160 285,150 Q295,170 310,155 Q325,170 335,150 Q355,160 362,220Z"
-                    fill="#1A1A1A" opacity="0.95"/>
-              <path d="M262,215 Q255,165 270,145 L278,168Z" fill="#1A1A1A" opacity="0.9"/>
-              <path d="M358,215 Q365,165 350,145 L342,168Z" fill="#1A1A1A" opacity="0.9"/>
-              <!-- Ear -->
-              <ellipse cx="258" cy="252" rx="10" ry="14" fill="#FFB890" opacity="0.9"/>
-              <ellipse cx="362" cy="252" rx="10" ry="14" fill="#FFB890" opacity="0.9"/>
-              <!-- Eyes — sharp anime style -->
-              <path d="M278,245 Q290,235 302,245 Q290,262 278,245Z" fill="#1A1A1A"/>
-              <path d="M318,245 Q330,235 342,245 Q330,262 318,245Z" fill="#1A1A1A"/>
-              <!-- Eye shine -->
-              <circle cx="286" cy="247" r="3" fill="white" opacity="0.8"/>
-              <circle cx="326" cy="247" r="3" fill="white" opacity="0.8"/>
-              <circle cx="294" cy="242" r="1.5" fill="white" opacity="0.6"/>
-              <circle cx="334" cy="242" r="1.5" fill="white" opacity="0.6"/>
-              <!-- Nose -->
-              <path d="M308,265 L312,265 L310,270Z" fill="#E8A882" opacity="0.8"/>
-              <!-- Mouth — slight smirk -->
-              <path d="M300,280 Q310,288 322,282" fill="none" stroke="#C0806A" stroke-width="1.8" stroke-linecap="round"/>
-              <!-- Left arm reaching out -->
-              <path d="M272,325 Q230,340 190,310 Q175,300 180,290 Q185,280 200,288 Q238,308 268,320Z"
-                    fill="#FFD0A0" opacity="0.92"/>
-              <!-- Hand (left) -->
-              <ellipse cx="182" cy="291" rx="16" ry="13" fill="#FFD0A0" opacity="0.9"/>
-              <!-- Right arm -->
-              <path d="M348,325 Q385,350 400,380 Q408,395 400,405 Q392,415 382,405 Q368,375 342,340Z"
-                    fill="#FFD0A0" opacity="0.9"/>
-              <!-- Glowing energy in left hand -->
-              <circle cx="182" cy="291" r="22" fill="#00C4CC" opacity="0.3" class="energy-pulse"/>
-              <circle cx="182" cy="291" r="14" fill="#00C4CC" opacity="0.5" class="energy-pulse"/>
-              <circle cx="182" cy="291" r="7"  fill="white"   opacity="0.9"/>
-            </g>
-
-            <!-- floating UI CARD 1 — Now Watching -->
-            <g class="float-card float-card--1" transform="translate(28, 100)">
-              <rect width="190" height="72" rx="0" fill="white" stroke="#1A1A1A" stroke-width="3"/>
-              <rect width="190" height="10" rx="0" fill="#FF3366"/>
-              <text x="10" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#1A1A1A" font-style="italic">NOW WATCHING</text>
-              <text x="10" y="48" font-family="Inter, sans-serif" font-weight="900" font-size="13" fill="#1A1A1A">Attack on Titan S4</text>
-              <text x="10" y="63" font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="#888">Ep 28 · 847 watching live</text>
-              <!-- live dot -->
-              <circle cx="175" cy="27" r="5" fill="#FF3366" class="live-blink"/>
-            </g>
-
-            <!-- floating UI CARD 2 — AI Rec -->
-            <g class="float-card float-card--2" transform="translate(400, 180)">
-              <rect width="195" height="78" rx="0" fill="#1A1A1A" stroke="white" stroke-width="3"/>
-              <rect width="195" height="10" rx="0" fill="#00C4CC"/>
-              <text x="10" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#00C4CC" font-style="italic">AI PICK FOR YOU</text>
-              <text x="10" y="48" font-family="Inter, sans-serif" font-weight="900" font-size="12" fill="white">Frieren: Beyond Journey</text>
-              <text x="10" y="63" font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="#aaa">98% match · 28 eps</text>
-              <!-- star rating -->
-              <text x="10" y="76" font-family="Inter, sans-serif" font-size="11" fill="#FFD700">★★★★★</text>
-            </g>
-
-            <!-- floating UI CARD 3 — Progress -->
-            <g class="float-card float-card--3" transform="translate(50, 530)">
-              <rect width="200" height="68" rx="0" fill="white" stroke="#1A1A1A" stroke-width="3"/>
-              <rect width="200" height="10" rx="0" fill="#00C4CC"/>
-              <text x="10" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#1A1A1A" font-style="italic">YOUR PROGRESS</text>
-              <text x="10" y="48" font-family="Inter, sans-serif" font-weight="900" font-size="12" fill="#1A1A1A">342 titles tracked</text>
-              <!-- progress bar -->
-              <rect x="10" y="54" width="180" height="7" rx="0" fill="#eee" stroke="#1A1A1A" stroke-width="1"/>
-              <rect x="10" y="54" width="138" height="7" rx="0" fill="#FF3366"/>
-            </g>
-
-            <!-- floating UI CARD 4 — Creator earnings -->
-            <g class="float-card float-card--4" transform="translate(370, 550)">
-              <rect width="185" height="72" rx="0" fill="#FF3366" stroke="#1A1A1A" stroke-width="3"/>
-              <text x="10" y="24" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="white" font-style="italic">CREATOR EARNINGS</text>
-              <text x="10" y="50" font-family="Inter, sans-serif" font-weight="900" font-size="26" fill="white">$2,480</text>
-              <text x="10" y="65" font-family="Inter, sans-serif" font-weight="500" font-size="10" fill="rgba(255,255,255,0.8)">↑ 34% this month</text>
-            </g>
-
-            <!-- Manga panel border lines (comic grid overlay) -->
-            <line x1="0"   y1="345" x2="620" y2="345" stroke="white" stroke-width="3" opacity="0.15"/>
-            <line x1="310" y1="0"   x2="310" y2="700" stroke="white" stroke-width="2" opacity="0.08"/>
-
-            <!-- Defs -->
-            <defs>
-              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="12" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-          </svg>
-
-        </div><!-- /.hero__image -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       FEATURES
-  ══════════════════════════════════════════ -->
-  <section id="features" class="features section-pad">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Core Features</h2>
-        <div class="accent-bar accent-bar--cyan" style="width:64px;height:6px;margin-top:1rem;"></div>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">// DIRECT DOWNLOAD V2.4.0</span>
+        <h1>Track. <span class="accent">Discover.</span><br>Read.</h1>
+        <p class="lede">
+          OtakuVerse is a free manga and manhwa tracker that keeps everything in one place.
+          Search from 6,000+ titles across MangaOwl, AsuraScans, ThunderScans, and Toonily. 
+          Add to your library and track progress without juggling browser tabs.
+        </p>
+        <div class="cta-row">
+          <!-- Main Hero Download Button -->
+          <a href="{{ url_for('static', filename='downloads/otakuverse-v2.4.0.apk') }}" class="btn btn-primary" download>
+            ↓ Download for Android (.apk)
+          </a>
+          <a href="#features" class="btn btn-ghost">See Features</a>
+        </div>
+        <p style="margin-top: 15px; font-size: 12px; color: var(--text-muted);">
+            Direct APK Installation. Safe & Secure. No Play Store account required.
+        </p>
       </div>
 
-      <div class="features__grid">
-
-        <article class="card card--feature reveal">
-          <div class="card__icon card__icon--magenta">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="mock-cover"></div>
+          <div class="mock-body">
+            <div class="mock-title">Solo Leveling</div>
+            <div class="mock-sub" style="font-size:11px; color:var(--text-muted)">Chugong & Dubu</div>
+            <div class="mock-cta">＋ Add to Library</div>
+            <div class="mock-chapter"><span class="ch-num">Ch. 179</span><span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px">Read</span></div>
+            <div class="mock-chapter"><span class="ch-num">Ch. 178</span><span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px">Read</span></div>
           </div>
-          <h3 class="card__title">Unified Tracking</h3>
-          <p class="card__desc">Track every anime episode and manga chapter across 12+ platforms from a single dashboard. Never lose your place again.</p>
-          <span class="badge">MULTI-PLATFORM</span>
-        </article>
-
-        <article class="card card--feature reveal delay-1">
-          <div class="card__icon card__icon--cyan">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3 class="card__title">Social Viewing</h3>
-          <p class="card__desc">Synchronized watch parties with real-time reactions, emoji storms, and group discussion threads. Experience anime together.</p>
-          <span class="badge">LIVE</span>
-        </article>
-
-        <article class="card card--feature reveal delay-2">
-          <div class="card__icon card__icon--magenta">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-          </div>
-          <h3 class="card__title">AI Discovery</h3>
-          <p class="card__desc">Hyper-personalised recommendations trained on your taste profile. Our AI surfaces hidden gems you'll actually love.</p>
-          <span class="badge">POWERED BY AI</span>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       CREATOR ECONOMY
-  ══════════════════════════════════════════ -->
-  <section id="creators" class="creators section-pad">
-    <div class="container">
-      <div class="creators__grid">
-        <div class="creators__image reveal"></div>
-        <div class="creators__content reveal delay-1">
-          <h2 class="section-title">Empower<br/>Creators</h2>
-          <div class="accent-bar accent-bar--cyan" style="width:24px;height:8px;margin:1.25rem 0 1.5rem;"></div>
-          <p class="body-lg">OtakuVerse gives fan artists, translators, reviewers, and cosplayers the tools to turn passion into a sustainable career.</p>
-
-          <div class="creators__items">
-            <div class="creator-item creator-item--magenta">
-              <h4>Creator Hub</h4>
-              <p>Portfolio pages, follower analytics, and direct messaging with your fanbase — all built in.</p>
-            </div>
-            <div class="creator-item creator-item--cyan">
-              <h4>Digital Marketplace</h4>
-              <p>Sell art prints, chapters, and exclusive content with zero platform fees for the first 6 months.</p>
-            </div>
-            <div class="creator-item creator-item--magenta">
-              <h4>Direct Support</h4>
-              <p>Subscription tiers, one-time tips, and goal-based crowdfunding keep creators independent.</p>
-            </div>
-          </div>
-
-          <a href="#pricing" class="btn btn--cyan btn--lg" style="margin-top:2rem;display:inline-block;">Become a Creator</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
-  <!-- ══════════════════════════════════════════
-       MARKET STATS
-  ══════════════════════════════════════════ -->
-  <section class="stats section-pad">
-    <div class="container">
-      <div class="stats__grid">
-        <div class="stat-card reveal">
-          <span class="stat-card__num">$88B</span>
-          <span class="stat-card__label">Anime Market</span>
+  <div class="panel-edge"></div>
+
+  <div class="wrap">
+    <section id="features">
+      <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">/// CORE FEATURES</span>
+      <h2 class="section-title">What OtakuVerse actually does.</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feature-tag mono" style="color:var(--violet); font-size:10px;">01 — Search & Browse</span>
+          <h3>Find what you want</h3>
+          <p style="color:var(--text-muted); font-size:14px;">Search 6,000+ manga and manhwa from MangaOwl, AsuraScans, ThunderScans, and Toonily.</p>
         </div>
-        <div class="stat-card reveal delay-1">
-          <span class="stat-card__num">$63B</span>
-          <span class="stat-card__label">Manga Market</span>
+        <div class="feature-card">
+          <span class="feature-tag mono" style="color:var(--violet); font-size:10px;">02 — Personal Library</span>
+          <h3>Track your collection</h3>
+          <p style="color:var(--text-muted); font-size:14px;">Add titles to your library, mark them reading/completed, and track exactly which chapter you stopped on.</p>
         </div>
-        <div class="stat-card reveal delay-2">
-          <span class="stat-card__num">9.4%</span>
-          <span class="stat-card__label">Annual CAGR</span>
-        </div>
-        <div class="stat-card reveal delay-3">
-          <span class="stat-card__num">500M+</span>
-          <span class="stat-card__label">Global Fan Base</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       PRICING
-  ══════════════════════════════════════════ -->
-  <section id="pricing" class="pricing section-pad">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Simple Pricing</h2>
-        <div class="accent-bar accent-bar--cyan" style="width:64px;height:6px;margin-top:1rem;"></div>
-      </div>
-
-      <div class="pricing__grid">
-
-        <!-- FREE -->
-        <article class="price-card reveal">
-          <h3 class="price-card__tier">Free</h3>
-          <div class="price-card__amount">$0<span>/mo</span></div>
-          <ul class="price-card__features">
-            <li>✓ Track up to 50 titles</li>
-            <li>✓ Join watch parties</li>
-            <li>✓ Basic AI recommendations</li>
-            <li>✓ Community forums</li>
-            <li class="muted">✗ Creator tools</li>
-            <li class="muted">✗ Exclusive content</li>
-          </ul>
-          <a href="#" class="btn btn--outline btn--full">Get Started</a>
-        </article>
-
-        <!-- PRO -->
-        <article class="price-card price-card--pro reveal delay-1">
-          <div class="price-card__badge">MOST POPULAR</div>
-          <h3 class="price-card__tier">Pro</h3>
-          <div class="price-card__amount">$9<span>/mo</span></div>
-          <ul class="price-card__features">
-            <li>✓ Unlimited tracking</li>
-            <li>✓ Host watch parties</li>
-            <li>✓ Advanced AI discovery</li>
-            <li>✓ Offline reading sync</li>
-            <li>✓ Early access features</li>
-            <li>✓ Ad-free experience</li>
-          </ul>
-          <a href="#" class="btn btn--white btn--full">Start Free Trial</a>
-        </article>
-
-        <!-- CREATOR -->
-        <article class="price-card reveal delay-2">
-          <h3 class="price-card__tier">Creator</h3>
-          <div class="price-card__amount">$19<span>/mo</span></div>
-          <ul class="price-card__features">
-            <li>✓ Everything in Pro</li>
-            <li>✓ Creator Hub access</li>
-            <li>✓ Marketplace storefront</li>
-            <li>✓ Advanced analytics</li>
-            <li>✓ Subscription tiers</li>
-            <li>✓ Priority support</li>
-          </ul>
-          <a href="#" class="btn btn--primary btn--full">Become a Creator</a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       CTA BAND
-  ══════════════════════════════════════════ -->
-  <section class="cta-band section-pad">
-    <div class="container cta-band__inner reveal">
-      <h2 class="section-title">Ready to Join<br/>OtakuVerse?</h2>
-      <p class="body-lg" style="max-width:540px;margin:1.5rem auto 2.5rem;">
-        Start your free trial today. No credit card required. Cancel anytime. Join 500M+ fans who live and breathe anime.
-      </p>
-      <a href="#pricing" class="btn btn--primary btn--lg">Get Started Free</a>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__col">
-        <span class="footer__logo">OtakuVerse</span>
-        <p class="footer__tagline">The Social OS for<br/>Anime &amp; Manga Fans.</p>
-        <div class="footer__socials">
-          <a href="#" aria-label="Twitter">𝕏</a>
-          <a href="#" aria-label="Discord">⌂</a>
-          <a href="#" aria-label="Instagram">◈</a>
+        <div class="feature-card">
+          <span class="feature-tag mono" style="color:var(--violet); font-size:10px;">03 — Read Inside App</span>
+          <h3>No tab switching</h3>
+          <p style="color:var(--text-muted); font-size:14px;">Chapters open in a built-in reader so you don't bounce between apps or deal with popups.</p>
         </div>
       </div>
-      <div class="footer__col">
-        <h5>Product</h5>
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#">Changelog</a></li>
-          <li><a href="#">Roadmap</a></li>
-        </ul>
+    </section>
+  </div>
+
+  <div class="panel-edge"></div>
+
+  <!-- RESTORED WHY SECTION -->
+  <div class="wrap">
+    <section id="why">
+      <div class="why">
+        <div>
+          <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">/// WHY THIS EXISTS</span>
+          <h2 style="font-size:26px; margin-bottom:20px;">Built to solve a real problem.</h2>
+          <p style="color:var(--text-muted); font-size:15px; margin-bottom:15px;">Tracking manga across websites sucks. Bookmarks get lost, Discord servers pile up, Google Docs stop working.</p>
+          <p style="color:var(--text-muted); font-size:15px;">OtakuVerse puts everything in one place. One app. One library. One reader.</p>
+        </div>
+        <div class="status-grid">
+          <div class="status-item"><h4>6,000+ Titles</h4><p style="font-size:12px; color:var(--text-muted)">Across 4 main sources</p></div>
+          <div class="status-item"><h4>Cloud Sync</h4><p style="font-size:12px; color:var(--text-muted)">Progress saved to account</p></div>
+          <div class="status-item"><h4>Built-In Reader</h4><p style="font-size:12px; color:var(--text-muted)">No browser ads/popups</p></div>
+          <div class="status-item"><h4>Open Source</h4><p style="font-size:12px; color:var(--text-muted)">Code available on GitHub</p></div>
+        </div>
       </div>
-      <div class="footer__col">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press</a></li>
-        </ul>
+    </section>
+  </div>
+
+  <div class="panel-edge"></div>
+
+  <!-- FIXED INSTALLATION STEPS -->
+  <div class="wrap">
+    <section id="how-it-works">
+      <h2 class="section-title">How to Install</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="num">01</span>
+          <h4>Download APK</h4>
+          <p style="color:var(--text-muted); font-size:13px;">Click the download button above to get the latest <b>.apk</b> file.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <h4>Allow Sources</h4>
+          <p style="color:var(--text-muted); font-size:13px;">If prompted, enable "Install from Unknown Sources" in your Android settings.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <h4>Install & Start</h4>
+          <p style="color:var(--text-muted); font-size:13px;">Open the file and tap Install. Your library is ready to go.</p>
+        </div>
       </div>
-      <div class="footer__col">
-        <h5>Legal</h5>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Cookie Policy</a></li>
-          <li><a href="#">DMCA</a></li>
-        </ul>
+
+      <div class="faq">
+        <h3 style="margin-bottom:24px;">Common Questions</h3>
+        <div class="faq-item">
+          <h4>Is this APK safe?</h4>
+          <p style="color:var(--text-muted); font-size:14px; margin-top:8px;">Yes. OtakuVerse is open source on GitHub. You can verify the code yourself. We don't track data.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Why isn't it on Play Store?</h4>
+          <p style="color:var(--text-muted); font-size:14px; margin-top:8px;">To avoid restrictions on source aggregation, we distribute directly via APK.</p>
+        </div>
       </div>
-    </div>
-    <div class="footer__bottom">
-      <p>© 2025 OtakuVerse Inc. All rights reserved.</p>
-    </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="logo">Otaku<span>Verse</span></div>
+    <p style="color:var(--text-muted); font-size:13px;">Track. Discover. Read.</p>
   </footer>
 
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
