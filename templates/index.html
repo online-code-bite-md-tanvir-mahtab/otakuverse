@@ -86,6 +86,69 @@
     .hero, .why, .steps, .feature-grid { grid-template-columns: 1fr; }
     .phone-frame { width: 240px; margin-top: 40px; }
   }
+   /* --- Professional Mockup Styling --- */
+  .phone-frame {
+    justify-self: center;
+    width: 300px;
+    background: #000; /* Solid black bezel */
+    border-radius: 45px;
+    padding: 12px;
+    box-shadow: 
+      0 40px 100px -20px rgba(124,92,252,0.5), 
+      0 0 0 2px rgba(255,255,255,0.1);
+    position: relative;
+    border: 1px solid #222;
+  }
+
+  .phone-screen {
+    background: #0B0B10;
+    border-radius: 34px;
+    overflow: hidden;
+    height: 620px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The actual image */
+  .app-screenshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills frame without gaps */
+    object-position: top;
+    animation: scrollApp 10s infinite alternate ease-in-out; /* Makes the UI "Scroll" automatically */
+  }
+
+  /* iPhone-style home bar */
+  .ios-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+  }
+
+  /* Dynamic Animation: Scrolls the long screenshot up and down */
+  @keyframes scrollApp {
+    0% { object-position: top; }
+    20% { object-position: top; }
+    80% { object-position: bottom; }
+    100% { object-position: bottom; }
+  }
+
+  /* Responsive size for mobile browsers */
+  @media (max-width: 860px) {
+    .phone-frame {
+      width: 240px;
+      padding: 8px;
+    }
+    .phone-screen {
+      height: 480px;
+    }
+  }
 </style>
 <meta name="google-site-verification" content="tC_k5sifGZf4HDoDPPyiQ31ltoHRiNQDOJRnJkZEF0I" />
 </head>
@@ -221,6 +284,17 @@
       </div>
     </section>
   </div>
+  <div class="phone-frame">
+  <div class="phone-screen">
+    <!-- Real App Screenshot -->
+    <img src="{{ url_for('static', filename='images/screenshot_detail.png') }}" 
+         alt="OtakuVerse App UI" 
+         class="app-screenshot">
+    
+    <!-- Optional: Add a "Home Indicator" bar at the bottom for realism -->
+    <div class="ios-indicator"></div>
+  </div>
+</div>
 
   <footer>
     <div class="logo">Otaku<span>Verse</span></div>
