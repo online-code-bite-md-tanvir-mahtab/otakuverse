@@ -1,164 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OtakuVerse — Track. Discover. Read.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0B0B10;
-    --surface: #15151C;
-    --surface-2: #1C1C25;
-    --ink: #000000;
-    --violet: #7C5CFC;
-    --cyan: #22D3EE;
-    --text: #F1F1F4;
-    --text-muted: #87878F;
-    --green: #34D399;
-    --orange: #F59E0B;
-    --red: #F87171;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OtakuVerse — Track. Discover. Read.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0B10;
+      --surface: #15151C;
+      --surface-2: #1C1C25;
+      --ink: #000000;
+      --violet: #7C5CFC;
+      --cyan: #22D3EE;
+      --text: #F1F1F4;
+      --text-muted: #87878F;
+      --green: #34D399;
+      --orange: #F59E0B;
+      --red: #F87171;
+    }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  h1, h2, h3, .display { font-family: 'Anton', sans-serif; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.05; }
-  .mono { font-family: 'IBM Plex Mono', monospace; letter-spacing: 1px; text-transform: uppercase; }
-  a { color: inherit; text-decoration: none; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .wrap { max-width: 1400px; width: 95%; margin: 0 auto; padding: 0 24px; }
-  .panel-edge { height: 10px; background: repeating-linear-gradient(90deg, var(--ink) 0px, var(--ink) 28px, transparent 28px, transparent 40px); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px; max-width: 1400px; margin: 0 auto; }
-  .logo { font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: 1px; }
-  .logo span { color: var(--violet); }
-  
-  .hero { padding: 60px 0 80px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
-  .eyebrow { font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 2px; color: var(--violet); margin-bottom: 18px; display: block; }
-  .hero h1 { font-size: clamp(38px, 5.4vw, 72px); margin-bottom: 20px; }
-  .hero h1 .accent { color: var(--cyan); }
-  .hero p.lede { font-size: 18px; color: var(--text-muted); max-width: 55ch; margin-bottom: 32px; line-height: 1.6; }
-  
-  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.15s ease; }
-  .btn-primary { background: var(--violet); color: white; box-shadow: 0 10px 30px rgba(124,92,252,0.3); }
-  .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.18); }
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: 'Anton', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
 
-  .phone-frame { justify-self: center; width: 300px; background: var(--ink); border-radius: 34px; padding: 10px; box-shadow: 0 30px 80px -20px rgba(124,92,252,0.35); }
-  .phone-screen { background: var(--bg); border-radius: 24px; overflow: hidden; height: 600px; display: flex; flex-direction: column; }
-  .mock-cover { height: 190px; background: radial-gradient(circle at 30% 20%, rgba(124,92,252,0.55), transparent 55%), #1a1a24; position: relative; }
-  .mock-body { padding: 16px; flex: 1; }
-  .mock-title { font-family: 'Anton'; font-size: 20px; }
-  .mock-cta { background: var(--violet); color: white; text-align: center; padding: 11px; border-radius: 9px; font-size: 12px; font-weight: 700; margin: 14px 0; }
-  .mock-chapter { background: var(--surface); border-radius: 10px; padding: 10px; display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 11px; }
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
 
-  section { padding: 80px 0; }
-  .section-title { font-size: clamp(28px, 3.4vw, 40px); margin-bottom: 44px; line-height: 1.1; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
-  .feature-card { background: var(--surface); padding: 40px 30px; }
-  .feature-card h3 { font-size: 22px; margin-bottom: 12px; text-transform: none; font-family: 'Inter'; }
+    .wrap {
+      max-width: 1400px;
+      width: 95%;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-  .why { background: var(--surface); border-radius: 20px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-  .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .status-item { background: var(--surface-2); border-radius: 12px; padding: 20px; }
+    .panel-edge {
+      height: 10px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0px, var(--ink) 28px, transparent 28px, transparent 40px);
+    }
 
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 40px; }
-  .step { border-left: 3px solid var(--violet); padding-left: 20px; }
-  .step .num { font-family: 'Anton'; font-size: 34px; color: rgba(124,92,252,0.4); }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
-  .faq { margin-top: 60px; }
-  .faq-item { background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+    .logo {
+      font-family: 'Anton', sans-serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
 
-  footer { padding: 60px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .logo span {
+      color: var(--violet);
+    }
 
-  @media (max-width: 900px) {
-    .hero, .why, .steps, .feature-grid { grid-template-columns: 1fr; }
-    .phone-frame { width: 240px; margin-top: 40px; }
-  }
-   /* --- Professional Mockup Styling --- */
-  .phone-frame {
-    justify-self: center;
-    width: 300px;
-    background: #000; /* Solid black bezel */
-    border-radius: 45px;
-    padding: 12px;
-    box-shadow: 
-      0 40px 100px -20px rgba(124,92,252,0.5), 
-      0 0 0 2px rgba(255,255,255,0.1);
-    position: relative;
-    border: 1px solid #222;
-  }
+    .hero {
+      padding: 60px 0 80px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
 
-  .phone-screen {
-    background: #0B0B10;
-    border-radius: 34px;
-    overflow: hidden;
-    height: 620px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+    .eyebrow {
+      font-family: 'IBM Plex Mono';
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--violet);
+      margin-bottom: 18px;
+      display: block;
+    }
 
-  /* The actual image */
-  .app-screenshot {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures image fills frame without gaps */
-    object-position: top;
-    animation: scrollApp 10s infinite alternate ease-in-out; /* Makes the UI "Scroll" automatically */
-  }
+    .hero h1 {
+      font-size: clamp(38px, 5.4vw, 72px);
+      margin-bottom: 20px;
+    }
 
-  /* iPhone-style home bar */
-  .ios-indicator {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 10px;
-  }
+    .hero h1 .accent {
+      color: var(--cyan);
+    }
 
-  /* Dynamic Animation: Scrolls the long screenshot up and down */
-  @keyframes scrollApp {
-    0% { object-position: top; }
-    20% { object-position: top; }
-    80% { object-position: bottom; }
-    100% { object-position: bottom; }
-  }
+    .hero p.lede {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 55ch;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
 
-  /* Responsive size for mobile browsers */
-  @media (max-width: 860px) {
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 26px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--violet);
+      color: white;
+      box-shadow: 0 10px 30px rgba(124, 92, 252, 0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
     .phone-frame {
-      width: 240px;
-      padding: 8px;
+      justify-self: center;
+      width: 300px;
+      background: var(--ink);
+      border-radius: 34px;
+      padding: 10px;
+      box-shadow: 0 30px 80px -20px rgba(124, 92, 252, 0.35);
     }
+
     .phone-screen {
-      height: 480px;
+      background: var(--bg);
+      border-radius: 24px;
+      overflow: hidden;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
     }
-  }
-</style>
-<meta name="google-site-verification" content="tC_k5sifGZf4HDoDPPyiQ31ltoHRiNQDOJRnJkZEF0I" />
+
+    .mock-cover {
+      height: 190px;
+      background: radial-gradient(circle at 30% 20%, rgba(124, 92, 252, 0.55), transparent 55%), #1a1a24;
+      position: relative;
+    }
+
+    .mock-body {
+      padding: 16px;
+      flex: 1;
+    }
+
+    .mock-title {
+      font-family: 'Anton';
+      font-size: 20px;
+    }
+
+    .mock-cta {
+      background: var(--violet);
+      color: white;
+      text-align: center;
+      padding: 11px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 14px 0;
+    }
+
+    .mock-chapter {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 11px;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.4vw, 40px);
+      margin-bottom: 44px;
+      line-height: 1.1;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 40px 30px;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      text-transform: none;
+      font-family: 'Inter';
+    }
+
+    .why {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .status-item {
+      background: var(--surface-2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      border-left: 3px solid var(--violet);
+      padding-left: 20px;
+    }
+
+    .step .num {
+      font-family: 'Anton';
+      font-size: 34px;
+      color: rgba(124, 92, 252, 0.4);
+    }
+
+    .faq {
+      margin-top: 60px;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 900px) {
+
+      .hero,
+      .why,
+      .steps,
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-frame {
+        width: 240px;
+        margin-top: 40px;
+      }
+    }
+
+    /* --- Professional Mockup Styling --- */
+    .phone-frame {
+      justify-self: center;
+      width: 300px;
+      background: #000;
+      /* Solid black bezel */
+      border-radius: 45px;
+      padding: 12px;
+      box-shadow:
+        0 40px 100px -20px rgba(124, 92, 252, 0.5),
+        0 0 0 2px rgba(255, 255, 255, 0.1);
+      position: relative;
+      border: 1px solid #222;
+    }
+
+    .phone-screen {
+      background: #0B0B10;
+      border-radius: 34px;
+      overflow: hidden;
+      height: 620px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* The actual image */
+    .app-screenshot {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ensures image fills frame without gaps */
+      object-position: top;
+      animation: scrollApp 10s infinite alternate ease-in-out;
+      /* Makes the UI "Scroll" automatically */
+    }
+
+    /* iPhone-style home bar */
+    .ios-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+    }
+
+    /* Dynamic Animation: Scrolls the long screenshot up and down */
+    @keyframes scrollApp {
+      0% {
+        object-position: top;
+      }
+
+      20% {
+        object-position: top;
+      }
+
+      80% {
+        object-position: bottom;
+      }
+
+      100% {
+        object-position: bottom;
+      }
+    }
+
+    /* Responsive size for mobile browsers */
+    @media (max-width: 860px) {
+      .phone-frame {
+        width: 240px;
+        padding: 8px;
+      }
+
+      .phone-screen {
+        height: 480px;
+      }
+    }
+  </style>
+  <meta name="google-site-verification" content="tC_k5sifGZf4HDoDPPyiQ31ltoHRiNQDOJRnJkZEF0I" />
 </head>
+
 <body>
 
   <nav>
     <div class="logo">Otaku<span>Verse</span></div>
     <!-- Nav Download Button -->
-    <a href="https://github.com/online-code-bite-md-tanvir-mahtab/otakuverse/releases/download/otakuverse-v1.0.0/otakuverse-v1.0.0.apk" class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;" download>
-        ↓ Download APK
+    <a href="https://github.com/online-code-bite-md-tanvir-mahtab/otakuverse/releases/download/otakuverse-v1.0.0/otakuverse-v1.0.0.apk"
+      class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;" download>
+      ↓ Download APK
     </a>
   </nav>
 
@@ -169,31 +418,30 @@
         <h1>Track. <span class="accent">Discover.</span><br>Read.</h1>
         <p class="lede">
           OtakuVerse is a free manga and manhwa tracker that keeps everything in one place.
-          Search from 6,000+ titles across MangaOwl, AsuraScans, ThunderScans, and Toonily. 
+          Search from 6,000+ titles across MangaOwl, AsuraScans, ThunderScans, and Toonily.
           Add to your library and track progress without juggling browser tabs.
         </p>
         <div class="cta-row">
           <!-- Main Hero Download Button -->
-          <a href="https://github.com/online-code-bite-md-tanvir-mahtab/otakuverse/releases/download/otakuverse-v1.0.0/otakuverse-v1.0.0.apk" class="btn btn-primary" download>
+          <a href="https://github.com/online-code-bite-md-tanvir-mahtab/otakuverse/releases/download/otakuverse-v1.0.0/otakuverse-v1.0.0.apk"
+            class="btn btn-primary" download>
             ↓ Download for Android (.apk)
           </a>
           <a href="#features" class="btn btn-ghost">See Features</a>
         </div>
         <p style="margin-top: 15px; font-size: 12px; color: var(--text-muted);">
-            Direct APK Installation. Safe & Secure. No Play Store account required.
+          Direct APK Installation. Safe & Secure. No Play Store account required.
         </p>
       </div>
 
       <div class="phone-frame">
         <div class="phone-screen">
-          <div class="mock-cover"></div>
-          <div class="mock-body">
-            <div class="mock-title">Solo Leveling</div>
-            <div class="mock-sub" style="font-size:11px; color:var(--text-muted)">Chugong & Dubu</div>
-            <div class="mock-cta">＋ Add to Library</div>
-            <div class="mock-chapter"><span class="ch-num">Ch. 179</span><span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px">Read</span></div>
-            <div class="mock-chapter"><span class="ch-num">Ch. 178</span><span style="background:rgba(255,255,255,0.05); padding:4px 8px; border-radius:4px">Read</span></div>
-          </div>
+          <!-- Real App Screenshot -->
+          <img src="{{ url_for('static', filename='images/screenshot_detail.png') }}" alt="OtakuVerse App UI"
+            class="app-screenshot">
+
+          <!-- Optional: Add a "Home Indicator" bar at the bottom for realism -->
+          <div class="ios-indicator"></div>
         </div>
       </div>
     </section>
@@ -203,23 +451,27 @@
 
   <div class="wrap">
     <section id="features">
-      <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">/// CORE FEATURES</span>
+      <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">///
+        CORE FEATURES</span>
       <h2 class="section-title">What OtakuVerse actually does.</h2>
       <div class="feature-grid">
         <div class="feature-card">
           <span class="feature-tag mono" style="color:var(--violet); font-size:10px;">01 — Search & Browse</span>
           <h3>Find what you want</h3>
-          <p style="color:var(--text-muted); font-size:14px;">Search 6,000+ manga and manhwa from MangaOwl, AsuraScans, ThunderScans, and Toonily.</p>
+          <p style="color:var(--text-muted); font-size:14px;">Search 6,000+ manga and manhwa from MangaOwl, AsuraScans,
+            ThunderScans, and Toonily.</p>
         </div>
         <div class="feature-card">
           <span class="feature-tag mono" style="color:var(--violet); font-size:10px;">02 — Personal Library</span>
           <h3>Track your collection</h3>
-          <p style="color:var(--text-muted); font-size:14px;">Add titles to your library, mark them reading/completed, and track exactly which chapter you stopped on.</p>
+          <p style="color:var(--text-muted); font-size:14px;">Add titles to your library, mark them reading/completed,
+            and track exactly which chapter you stopped on.</p>
         </div>
         <div class="feature-card">
           <span class="feature-tag mono" style="color:var(--violet); font-size:10px;">03 — Read Inside App</span>
           <h3>No tab switching</h3>
-          <p style="color:var(--text-muted); font-size:14px;">Chapters open in a built-in reader so you don't bounce between apps or deal with popups.</p>
+          <p style="color:var(--text-muted); font-size:14px;">Chapters open in a built-in reader so you don't bounce
+            between apps or deal with popups.</p>
         </div>
       </div>
     </section>
@@ -232,16 +484,31 @@
     <section id="why">
       <div class="why">
         <div>
-          <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">/// WHY THIS EXISTS</span>
+          <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">///
+            WHY THIS EXISTS</span>
           <h2 style="font-size:26px; margin-bottom:20px;">Built to solve a real problem.</h2>
-          <p style="color:var(--text-muted); font-size:15px; margin-bottom:15px;">Tracking manga across websites sucks. Bookmarks get lost, Discord servers pile up, Google Docs stop working.</p>
-          <p style="color:var(--text-muted); font-size:15px;">OtakuVerse puts everything in one place. One app. One library. One reader.</p>
+          <p style="color:var(--text-muted); font-size:15px; margin-bottom:15px;">Tracking manga across websites sucks.
+            Bookmarks get lost, Discord servers pile up, Google Docs stop working.</p>
+          <p style="color:var(--text-muted); font-size:15px;">OtakuVerse puts everything in one place. One app. One
+            library. One reader.</p>
         </div>
         <div class="status-grid">
-          <div class="status-item"><h4>6,000+ Titles</h4><p style="font-size:12px; color:var(--text-muted)">Across 4 main sources</p></div>
-          <div class="status-item"><h4>Cloud Sync</h4><p style="font-size:12px; color:var(--text-muted)">Progress saved to account</p></div>
-          <div class="status-item"><h4>Built-In Reader</h4><p style="font-size:12px; color:var(--text-muted)">No browser ads/popups</p></div>
-          <div class="status-item"><h4>Open Source</h4><p style="font-size:12px; color:var(--text-muted)">Code available on GitHub</p></div>
+          <div class="status-item">
+            <h4>6,000+ Titles</h4>
+            <p style="font-size:12px; color:var(--text-muted)">Across 4 main sources</p>
+          </div>
+          <div class="status-item">
+            <h4>Cloud Sync</h4>
+            <p style="font-size:12px; color:var(--text-muted)">Progress saved to account</p>
+          </div>
+          <div class="status-item">
+            <h4>Built-In Reader</h4>
+            <p style="font-size:12px; color:var(--text-muted)">No browser ads/popups</p>
+          </div>
+          <div class="status-item">
+            <h4>Open Source</h4>
+            <p style="font-size:12px; color:var(--text-muted)">Code available on GitHub</p>
+          </div>
         </div>
       </div>
     </section>
@@ -257,17 +524,20 @@
         <div class="step">
           <span class="num">01</span>
           <h4>Download APK</h4>
-          <p style="color:var(--text-muted); font-size:13px;">Click the download button above to get the latest <b>.apk</b> file.</p>
+          <p style="color:var(--text-muted); font-size:13px;">Click the download button above to get the latest
+            <b>.apk</b> file.</p>
         </div>
         <div class="step">
           <span class="num">02</span>
           <h4>Allow Sources</h4>
-          <p style="color:var(--text-muted); font-size:13px;">If prompted, enable "Install from Unknown Sources" in your Android settings.</p>
+          <p style="color:var(--text-muted); font-size:13px;">If prompted, enable "Install from Unknown Sources" in your
+            Android settings.</p>
         </div>
         <div class="step">
           <span class="num">03</span>
           <h4>Install & Start</h4>
-          <p style="color:var(--text-muted); font-size:13px;">Open the file and tap Install. Your library is ready to go.</p>
+          <p style="color:var(--text-muted); font-size:13px;">Open the file and tap Install. Your library is ready to
+            go.</p>
         </div>
       </div>
 
@@ -275,26 +545,18 @@
         <h3 style="margin-bottom:24px;">Common Questions</h3>
         <div class="faq-item">
           <h4>Is this APK safe?</h4>
-          <p style="color:var(--text-muted); font-size:14px; margin-top:8px;">Yes. OtakuVerse is open source on GitHub. You can verify the code yourself. We don't track data.</p>
+          <p style="color:var(--text-muted); font-size:14px; margin-top:8px;">Yes. OtakuVerse is open source on GitHub.
+            You can verify the code yourself. We don't track data.</p>
         </div>
         <div class="faq-item">
           <h4>Why isn't it on Play Store?</h4>
-          <p style="color:var(--text-muted); font-size:14px; margin-top:8px;">To avoid restrictions on source aggregation, we distribute directly via APK.</p>
+          <p style="color:var(--text-muted); font-size:14px; margin-top:8px;">To avoid restrictions on source
+            aggregation, we distribute directly via APK.</p>
         </div>
       </div>
     </section>
   </div>
-  <div class="phone-frame">
-  <div class="phone-screen">
-    <!-- Real App Screenshot -->
-    <img src="{{ url_for('static', filename='images/screenshot_detail.png') }}" 
-         alt="OtakuVerse App UI" 
-         class="app-screenshot">
-    
-    <!-- Optional: Add a "Home Indicator" bar at the bottom for realism -->
-    <div class="ios-indicator"></div>
-  </div>
-</div>
+
 
   <footer>
     <div class="logo">Otaku<span>Verse</span></div>
@@ -302,4 +564,5 @@
   </footer>
 
 </body>
+
 </html>
