@@ -11,6 +11,62 @@
     href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <style>
+    /* --- Feedback Section Styling --- */
+    .feedback-form {
+      background: var(--surface);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'IBM Plex Mono';
+      font-size: 12px;
+      color: var(--violet);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--surface-2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--violet);
+    }
+
+    .form-textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .feedback-grid {
+        grid-template-columns: 1fr;
+      }
+    }
     :root {
       --bg: #0B0B10;
       --surface: #15151C;
@@ -640,6 +696,56 @@
             go.</p>
         </div>
       </div>
+      <div class="panel-edge"></div>
+
+  <!-- FEEDBACK SECTION -->
+  <div class="wrap">
+    <section id="feedback">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <span class="section-label" style="color:var(--text-muted); font-family: 'IBM Plex Mono'; font-size:12px;">/// FEEDBACK & SUPPORT</span>
+        <h2 class="section-title" style="margin-bottom: 10px;">Help us improve OtakuVerse</h2>
+        <p style="color: var(--text-muted);">Found a bug? Want a new source? Let us know below.</p>
+      </div>
+
+      <div class="feedback-form">
+        <!-- Replace the action URL after following Step 2 below -->
+        <form action="https://formspree.io/f/tmahtab57@gmail.com" method="POST">
+          <div class="feedback-grid">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" name="name" class="form-input" placeholder="e.g. Jin Woo" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" name="_replyto" class="form-input" placeholder="name@example.com" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Subject</label>
+            <select name="subject" class="form-input">
+              <option value="Bug Report">Bug Report</option>
+              <option value="Feature Request">Feature Request</option>
+              <option value="Source Request">Source Request</option>
+              <option value="General Feedback">General Feedback</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" class="form-textarea" placeholder="Tell us what's on your mind..." required></textarea>
+          </div>
+
+          <!-- Anti-Spam (Honeypot) -->
+          <input type="text" name="_gotcha" style="display:none">
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            Send Feedback
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
 
       <div class="faq">
         <h3 style="margin-bottom:24px;">Common Questions</h3>
