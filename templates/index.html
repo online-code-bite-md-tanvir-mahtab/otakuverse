@@ -14,6 +14,10 @@
       --surface-2: #1C1C25;
       --violet: #7C5CFC;
       --cyan: #22D3EE;
+      --green: #22C55E;
+      --orange: #F59E0B;
+      --blue: #3B82F6;
+      --pink: #EC4899;
       --text: #F1F1F4;
       --text-muted: #87878F;
     }
@@ -24,48 +28,105 @@
     h1, h2, h3 { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 1.1; }
     .mono { font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
     .wrap { max-width: 1400px; width: 92%; margin: 0 auto; padding: 0 24px; }
-    .btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; text-decoration: none; }
+    .section-title { font-size: 42px; margin-bottom: 40px; text-align: center; }
+    .lede { font-size: 18px; line-height: 1.8; margin-bottom: 30px; color: var(--text-muted); }
+    
+    .btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; text-decoration: none; border: none; font-size: 14px; }
     .btn-primary { background: var(--violet); color: white; box-shadow: 0 10px 30px rgba(124,92,252,0.3); }
+    .btn-primary:hover { transform: translateY(-2px); }
     .btn-ghost { border: 1px solid rgba(255,255,255,0.1); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--violet); }
 
-    /* --- PHASE 1: Hero & Badge --- */
+    /* --- NAVIGATION --- */
     nav { display: flex; align-items: center; justify-content: space-between; padding: 30px 0; }
-    .logo { font-family: 'Anton'; font-size: 24px; }
+    .logo { font-family: 'Anton'; font-size: 24px; font-weight: 800; }
     .logo span { color: var(--violet); }
 
+    /* --- HERO SECTION --- */
     .hero { padding: 80px 0; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
     .pain-point { color: var(--cyan); font-weight: 700; font-size: 14px; margin-bottom: 10px; display: block; }
     .hero h1 { font-size: clamp(40px, 6vw, 85px); margin-bottom: 20px; }
     .motive-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2); color: var(--cyan); padding: 6px 14px; border-radius: 99px; font-size: 11px; font-weight: 700; margin-bottom: 20px; }
 
-    /* --- PHASE 2: Visual Proof & Sources --- */
+    /* --- COMPARISON GRID --- */
     .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 80px 0; }
     .comp-card { background: var(--surface); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    .comp-card h3 { margin-bottom: 15px; }
+    .comp-card.active { border-color: var(--violet); }
+
+    /* --- SOURCES GRID --- */
     .source-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 30px; justify-content: center; }
     .source-tag { background: var(--surface-2); padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.05); }
 
-    /* --- PHASE 3: Motive --- */
+    /* --- MOTIVE BOX --- */
     .motive-box { background: linear-gradient(135deg, #15151C 0%, #1a1a2e 100%); padding: 60px; border-radius: 30px; border: 1px solid rgba(124,92,252,0.2); margin: 60px 0; }
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
     .stat-item h4 { color: var(--violet); font-size: 32px; }
 
-    /* --- PHASE 4: Roadmap --- */
-    .roadmap { margin: 100px 0; }
-    .roadmap-item { display: flex; gap: 20px; margin-bottom: 20px; background: var(--surface); padding: 20px; border-radius: 15px; align-items: center; }
-    .status-check { color: var(--green); font-weight: bold; }
+    /* --- ROADMAP SECTION --- */
+    .roadmap { background: linear-gradient(135deg, #0D0D0D 0%, #1A1A2E 100%); border-radius: 16px; padding: 40px; margin: 100px 0; }
+    .roadmap h2 { text-align: center; margin-bottom: 40px; background: linear-gradient(135deg, #6C3CE1, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-    /* --- Phone Frame (Carousel) --- */
-    .phone-frame { justify-self: center; width: 300px; background: #000; border-radius: 45px; padding: 10px; border: 2px solid #222; box-shadow: 0 40px 80px rgba(124,92,252,0.4); position: relative; }
+    .roadmap-item { display: flex; align-items: center; gap: 20px; padding: 20px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); border-left: 4px solid #6C3CE1; border-radius: 8px; transition: 0.3s; }
+    .roadmap-item:hover { background: rgba(255, 255, 255, 0.08); transform: translateX(8px); }
+    .roadmap-item span { font-size: 28px; min-width: 40px; }
+
+    .roadmap-phase { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; border: 1px solid rgba(108, 60, 225, 0.3); transition: 0.3s; }
+    .roadmap-phase:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(108, 60, 225, 0.6); }
+    .roadmap-phase h3 { margin-top: 0; margin-bottom: 15px; }
+    .roadmap-phase ul { list-style: none; }
+    .roadmap-phase ul li { padding: 8px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .roadmap-phase ul li:last-child { border-bottom: none; }
+
+    /* --- PHONE FRAME --- */
+    .phone-frame { justify-self: center; width: 300px; background: #000; border-radius: 45px; padding: 10px; border: 2px solid #222; box-shadow: 0 40px 80px rgba(124,92,252,0.4); }
     .phone-screen { background: #000; border-radius: 36px; overflow: hidden; height: 600px; position: relative; }
     .app-screenshot { width: 100%; height: 100%; object-fit: cover; object-position: top; position: absolute; opacity: 0; animation: cycle 12s infinite; }
-    .s1 { animation-delay: 0s; } .s2 { animation-delay: 4s; } .s3 { animation-delay: 8s; }
-    @keyframes cycle { 0% { opacity: 0; } 5% { opacity: 1; } 28% { opacity: 1; } 33% { opacity: 0; } 100% { opacity: 0; } }
+    .s1 { animation-delay: 0s; }
+    .s2 { animation-delay: 4s; }
+    .s3 { animation-delay: 8s; }
 
-    /* --- FAQ --- */
+    @keyframes cycle {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      28% { opacity: 1; }
+      33% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* --- FAQ SECTION --- */
     .faq-item { background: var(--surface); padding: 25px; border-radius: 16px; margin-bottom: 15px; cursor: pointer; border: 1px solid transparent; transition: 0.3s; }
     .faq-item:hover { border-color: var(--violet); }
+    .faq-item b { font-weight: 700; }
+    .faq-item p { margin-top: 10px; }
 
-    @media (max-width: 900px) { .hero, .comparison-grid, .stats-row, .why { grid-template-columns: 1fr; } .hero { text-align: center; } .btn { width: 100%; justify-content: center; } }
+    /* --- FEEDBACK FORM --- */
+    .feedback-form { background: var(--surface); padding: 40px; border-radius: 20px; margin-bottom: 100px; }
+    .feedback-form input,
+    .feedback-form textarea { background: var(--bg); border: 1px solid #333; padding: 15px; border-radius: 10px; color: white; font-family: 'Inter', sans-serif; }
+    .feedback-form input::placeholder,
+    .feedback-form textarea::placeholder { color: var(--text-muted); }
+
+    /* --- FOOTER --- */
+    footer { padding: 60px 0; text-align: center; color: var(--text-muted); font-size: 12px; border-top: 1px solid #111; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+      .hero,
+      .comparison-grid,
+      .stats-row,
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .hero { text-align: center; }
+      .phone-frame { width: 250px; }
+      .btn { width: 100%; justify-content: center; }
+      .roadmap h2 { font-size: 28px; }
+      .section-title { font-size: 32px; }
+    }
   </style>
 </head>
 <body>
@@ -81,7 +142,7 @@
       <div>
         <span class="pain-point">STOP LOSING YOUR PLACE IN 50 BROWSER TABS</span>
         <div class="motive-badge">🛡️ Open Source & Privacy First</div>
-        <h1>Your Library.<br><span style="color:var(--violet)">One Verse.</span></h1>
+        <h1>Your Library.<br><span style="color:var(--violet);">One Verse.</span></h1>
         <p class="lede">
           OtakuVerse is an open-source tracking hub that centralizes your hobby. 
           Search 6,000+ titles from Asura, Toonily, and MangaOwl in one premium 
@@ -95,375 +156,183 @@
 
       <div class="phone-frame">
         <div class="phone-screen">
-          <img src="{{ url_for('static', filename='images/screenshot_home.png') }}" class="app-screenshot s1" alt="Home">
-          <img src="{{ url_for('static', filename='images/screenshot_detail.png') }}" class="app-screenshot s2" alt="Detail">
-          <img src="{{ url_for('static', filename='images/screenshot_profile.png') }}" class="app-screenshot s3" alt="Profile">
+          <img src="https://via.placeholder.com/280x600?text=Home+Screen" class="app-screenshot s1" alt="Home">
+          <img src="https://via.placeholder.com/280x600?text=Detail+Screen" class="app-screenshot s2" alt="Detail">
+          <img src="https://via.placeholder.com/280x600?text=Profile+Screen" class="app-screenshot s3" alt="Profile">
         </div>
       </div>
     </section>
 
     <!-- PHASE 2: VISUAL PROOF (BEFORE/AFTER) -->
     <section class="comparison-grid">
-        <div class="comp-card" style="opacity: 0.6;">
-            <h3 style="color:var(--red); margin-bottom:15px;">Browsers</h3>
-            <p style="font-size:14px; color:var(--text-muted);">Aggressive pop-up ads, dozens of tabs, lost bookmarks, and zero progress tracking.</p>
-        </div>
-        <div class="comp-card" style="border-color: var(--violet);">
-            <h3 style="color:var(--violet); margin-bottom:15px;">OtakuVerse</h3>
-            <p style="font-size:14px; color:var(--text-muted);">Ad-free native reader, one search for all sources, and auto-syncing library.</p>
-        </div>
+      <div class="comp-card" style="opacity: 0.6;">
+        <h3 style="color:var(--text-muted);">❌ Browser Chaos</h3>
+        <p style="font-size:14px; color:var(--text-muted);">Aggressive pop-up ads, dozens of tabs, lost bookmarks, and zero progress tracking.</p>
+      </div>
+      <div class="comp-card active">
+        <h3 style="color:var(--violet);">✅ OtakuVerse</h3>
+        <p style="font-size:14px; color:var(--text-muted);">Ad-free native reader, one search for all sources, and auto-syncing library.</p>
+      </div>
     </section>
 
     <!-- PHASE 2: SOURCES -->
-    <div style="text-align: center;">
-        <span class="mono" style="font-size:12px; color:var(--text-muted);">INDEXING THE UNIVERSE</span>
-        <div class="source-grid">
-            <div class="source-tag">Asura Scans</div>
-            <div class="source-tag">Toonily</div>
-            <div class="source-tag">MangaOwl</div>
-            <div class="source-tag">Thunder Scans</div>
-        </div>
+    <div style="text-align: center; margin: 60px 0;">
+      <span class="mono" style="font-size:12px; color:var(--text-muted); display: block; margin-bottom: 20px;">INDEXING THE UNIVERSE</span>
+      <div class="source-grid">
+        <div class="source-tag">Asura Scans</div>
+        <div class="source-tag">Toonily</div>
+        <div class="source-tag">MangaOwl</div>
+        <div class="source-tag">Thunder Scans</div>
+      </div>
     </div>
 
     <!-- PHASE 3: MOTIVE & LIVE STATS -->
     <section class="motive-box">
-        <div style="max-width: 800px;">
-            <h2 style="font-size: 32px; margin-bottom: 20px;">Built for the Community</h2>
-            <p style="color: var(--text-muted); font-size: 18px;">
-                We were tired of fragmented bookmarks and intrusive ads. We built OtakuVerse to give manga fans an "Enterprise Grade" experience—fast, secure, and beautiful. 
-                <b>No tracking, no data selling, just the stories you love.</b>
-            </p>
+      <div style="max-width: 800px;">
+        <h2 style="font-size: 32px; margin-bottom: 20px; color: var(--text);">Built for the Community</h2>
+        <p style="color: var(--text-muted); font-size: 18px;">
+          We were tired of fragmented bookmarks and intrusive ads. We built OtakuVerse to give manga fans an "Enterprise Grade" experience—fast, secure, and beautiful. 
+          <b>No tracking, no data selling, just the stories you love.</b>
+        </p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <h4 id="mangaCount">8,432</h4>
+          <p class="mono" style="font-size:10px;">Titles Indexed</p>
         </div>
-        <div class="stats-row">
-            <div class="stat-item">
-                <h4 id="mangaCount">8,432</h4>
-                <p class="mono" style="font-size:10px;">Titles Indexed</p>
-            </div>
-            <div class="stat-item">
-                <h4>4</h4>
-                <p class="mono" style="font-size:10px;">Real-time Sources</p>
-            </div>
-            <div class="stat-item">
-                <h4>100%</h4>
-                <p class="mono" style="font-size:10px;">Ad-Free</p>
-            </div>
+        <div class="stat-item">
+          <h4>4</h4>
+          <p class="mono" style="font-size:10px;">Real-time Sources</p>
         </div>
+        <div class="stat-item">
+          <h4>100%</h4>
+          <p class="mono" style="font-size:10px;">Ad-Free</p>
+        </div>
+      </div>
     </section>
 
-    !-- UPDATED ROADMAP - August 2026 Onwards -->
-<section id="roadmap" class="roadmap">
-    <h2 class="section-title">OtakuVerse Roadmap</h2>
-    
-    <!-- COMPLETED -->
-    <div class="roadmap-item">
-        <span class="status-check">✅</span>
+    <!-- PHASE 4: ROADMAP -->
+    <section id="roadmap" class="roadmap">
+      <h2>OtakuVerse Roadmap</h2>
+      
+      <!-- COMPLETED -->
+      <div class="roadmap-item">
+        <span>✅</span>
         <div><b>Q1-Q2 2026:</b> MVP Launch - App & Core Features Live</div>
-    </div>
-    
-    <div class="roadmap-item">
-        <span class="status-check">✅</span>
+      </div>
+      
+      <div class="roadmap-item">
+        <span>✅</span>
         <div><b>Q2 2026:</b> Firebase FCM Push Notifications</div>
-    </div>
-    
-    <div class="roadmap-item">
-        <span class="status-check">✅</span>
+      </div>
+      
+      <div class="roadmap-item">
+        <span>✅</span>
         <div><b>Q2 2026:</b> Google Sign-In & OAuth 2.0 Authentication</div>
-    </div>
-    
-    <div class="roadmap-item">
-        <span class="status-check">✅</span>
+      </div>
+      
+      <div class="roadmap-item">
+        <span>✅</span>
         <div><b>August 2026:</b> User Feedback Collection System</div>
-    </div>
-    
-    <!-- IN PROGRESS / CURRENT -->
-    <div class="roadmap-item" style="opacity: 0.9; border-left-color: #3B82F6;">
+      </div>
+      
+      <!-- IN PROGRESS -->
+      <div class="roadmap-item" style="opacity: 0.9; border-left-color: var(--blue);">
         <span>🚀</span>
         <div><b>Q3 2026 (Current):</b> Google Play Store Submission & Marketing Launch</div>
-    </div>
-    
-    <div class="roadmap-item" style="opacity: 0.9; border-left-color: #3B82F6;">
+      </div>
+      
+      <div class="roadmap-item" style="opacity: 0.9; border-left-color: var(--blue);">
         <span>🚀</span>
         <div><b>Q3 2026 (Current):</b> Advanced Local Search & Filtering</div>
-    </div>
-    
-    <!-- UPCOMING -->
-    <div class="roadmap-item" style="opacity: 0.75;">
+      </div>
+      
+      <!-- UPCOMING -->
+      <div class="roadmap-item" style="opacity: 0.75;">
         <span>⏳</span>
         <div><b>Q4 2026:</b> iOS App Development & TestFlight Beta</div>
-    </div>
-    
-    <div class="roadmap-item" style="opacity: 0.75;">
+      </div>
+      
+      <div class="roadmap-item" style="opacity: 0.75;">
         <span>⏳</span>
         <div><b>Q4 2026:</b> AI-Powered Manga Recommendations</div>
-    </div>
-    
-    <div class="roadmap-item" style="opacity: 0.75;">
+      </div>
+      
+      <div class="roadmap-item" style="opacity: 0.75;">
         <span>⏳</span>
         <div><b>Q4 2026:</b> Community Features & Social Sharing</div>
-    </div>
-    
-    <!-- FUTURE PLANNING -->
-    <div class="roadmap-item" style="opacity: 0.6;">
+      </div>
+      
+      <!-- FUTURE -->
+      <div class="roadmap-item" style="opacity: 0.6;">
         <span>🔍</span>
         <div><b>Q1 2027:</b> iOS App Store Launch</div>
-    </div>
-    
-    <div class="roadmap-item" style="opacity: 0.6;">
+      </div>
+      
+      <div class="roadmap-item" style="opacity: 0.6;">
         <span>🔍</span>
         <div><b>Q1 2027:</b> Web Dashboard & Analytics Platform</div>
-    </div>
-    
-    <div class="roadmap-item" style="opacity: 0.5;">
+      </div>
+      
+      <div class="roadmap-item" style="opacity: 0.5;">
         <span>🔍</span>
         <div><b>Q2 2027:</b> Multi-Language Support (10+ Languages)</div>
-    </div>
-    
-    <div class="roadmap-item" style="opacity: 0.5;">
+      </div>
+      
+      <div class="roadmap-item" style="opacity: 0.5;">
         <span>🔍</span>
         <div><b>Q3 2027:</b> Offline Reading & Chapter Downloads</div>
-    </div>
-</section>
- 
-<!-- ALTERNATIVE: Phase-Based Timeline -->
-<section id="roadmap" class="roadmap">
-    <h2 class="section-title">Development Phases</h2>
-    
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <!-- Phase 1: Done -->
-        <div class="roadmap-phase">
-            <h3 style="color: #22C55E;">✅ Phase 1: Foundation (Complete)</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li>✓ Flutter app developed</li>
-                <li>✓ 6000+ manga database</li>
-                <li>✓ User authentication system</li>
-                <li>✓ Library management</li>
-                <li>✓ Web reader integration</li>
-            </ul>
-        </div>
-        
-        <!-- Phase 2: Done -->
-        <div class="roadmap-phase">
-            <h3 style="color: #22C55E;">✅ Phase 2: Features (Complete)</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li>✓ Firebase FCM notifications</li>
-                <li>✓ Google Sign-In auth</li>
-                <li>✓ Local library search</li>
-                <li>✓ User feedback system</li>
-                <li>✓ In-app notifications</li>
-            </ul>
-        </div>
-        
-        <!-- Phase 3: Current -->
-        <div class="roadmap-phase">
-            <h3 style="color: #3B82F6;">🚀 Phase 3: Launch (Q3 2026)</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li>→ Google Play Store submission</li>
-                <li>→ Marketing campaign</li>
-                <li>→ Beta testing & feedback</li>
-                <li>→ Performance optimization</li>
-                <li>→ Bug fixes & polishing</li>
-            </ul>
-        </div>
-        
-        <!-- Phase 4: Next -->
-        <div class="roadmap-phase">
-            <h3 style="color: #F59E0B;">⏳ Phase 4: Expansion (Q4 2026)</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li>iOS development</li>
-                <li>AI recommendations</li>
-                <li>Community features</li>
-                <li>User retention tools</li>
-                <li>Analytics dashboard</li>
-            </ul>
-        </div>
-        
-        <!-- Phase 5: Scale -->
-        <div class="roadmap-phase">
-            <h3 style="color: #8B5CF6; opacity: 0.7;">🔍 Phase 5: Scale (2027)</h3>
-            <ul style="list-style: none; padding: 0; opacity: 0.7;">
-                <li>iOS App Store launch</li>
-                <li>Web platform</li>
-                <li>Multi-language support</li>
-                <li>Offline features</li>
-                <li>Enterprise partnerships</li>
-            </ul>
-        </div>
- 
-        <!-- Phase 6: Future -->
-        <div class="roadmap-phase">
-            <h3 style="color: #EC4899; opacity: 0.6;">💡 Phase 6: Innovation (2027+)</h3>
-            <ul style="list-style: none; padding: 0; opacity: 0.6;">
-                <li>Advanced AI features</li>
-                <li>Social network</li>
-                <li>Creator tools</li>
-                <li>Global expansion</li>
-                <li>B2B solutions</li>
-            </ul>
-        </div>
-    </div>
-</section>
- 
-<!-- ALTERNATIVE: Compact Timeline -->
-<section id="roadmap" class="roadmap">
-    <h2 class="section-title">What's Happening Now?</h2>
-    
-    <div style="position: relative; padding: 20px 0;">
-        <!-- Timeline Line -->
-        <div style="position: absolute; left: 30px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #22C55E, #22C55E 30%, #3B82F6 30%, #3B82F6 50%, #F59E0B 50%, #F59E0B 70%, #8B5CF6 70%);"></div>
-        
-        <!-- Timeline Items -->
-        <div style="margin-left: 100px;">
-            <!-- Past -->
-            <div style="margin-bottom: 50px; opacity: 0.7;">
-                <div style="position: absolute; left: 4px; width: 40px; height: 40px; background: #22C55E; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">✓</div>
-                <div><b style="font-size: 18px;">2024-2026: Foundation Built</b></div>
-                <p style="margin: 8px 0; color: #999; font-size: 14px;">MVP developed, launched, core features implemented</p>
-            </div>
-            
-            <!-- Now -->
-            <div style="margin-bottom: 50px; background: rgba(59, 130, 246, 0.1); padding: 20px; border-radius: 8px; margin-left: -20px; padding-left: 20px;">
-                <div style="position: absolute; left: 4px; width: 40px; height: 40px; background: #3B82F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; animation: pulse 2s infinite;">🚀</div>
-                <div><b style="font-size: 18px; color: #3B82F6;">Q3 2026: Launch Phase</b></div>
-                <p style="margin: 8px 0; color: #999; font-size: 14px;">🎯 Google Play Store submission • Marketing campaign • Beta testing</p>
-            </div>
-            
-            <!-- Next Quarter -->
-            <div style="margin-bottom: 50px;">
-                <div style="position: absolute; left: 4px; width: 40px; height: 40px; background: #F59E0B; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">⏳</div>
-                <div><b style="font-size: 18px;">Q4 2026: Feature Expansion</b></div>
-                <p style="margin: 8px 0; color: #999; font-size: 14px;">iOS development begins • AI recommendations • Community features</p>
-            </div>
-            
-            <!-- Future -->
-            <div style="opacity: 0.6;">
-                <div style="position: absolute; left: 4px; width: 40px; height: 40px; background: #8B5CF6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">🔍</div>
-                <div><b style="font-size: 18px;">2027 & Beyond: Scale</b></div>
-                <p style="margin: 8px 0; color: #999; font-size: 14px;">iOS launch • Web platform • Multi-language • Offline reading</p>
-            </div>
-        </div>
-    </div>
-</section>
- 
-<!-- CSS for animations -->
-<style>
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
- 
-.roadmap {
-    background: linear-gradient(135deg, #0D0D0D 0%, #1A1A2E 100%);
-    border-radius: 16px;
-    padding: 40px;
-    margin: 40px 0;
-}
- 
-.roadmap h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 32px;
-    background: linear-gradient(135deg, #6C3CE1, #00D4FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
- 
-.roadmap-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border-left: 4px solid #6C3CE1;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
- 
-.roadmap-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateX(8px);
-}
- 
-.roadmap-item span {
-    font-size: 28px;
-    min-width: 40px;
-}
- 
-.status-check {
-    color: #22C55E;
-}
- 
-.roadmap-phase {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid rgba(108, 60, 225, 0.3);
-    transition: all 0.3s ease;
-}
- 
-.roadmap-phase:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(108, 60, 225, 0.6);
-}
- 
-.roadmap-phase h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-}
- 
-.roadmap-phase ul li {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
- 
-.roadmap-phase ul li:last-child {
-    border-bottom: none;
-}
-</style>
+      </div>
+    </section>
 
     <!-- INTERACTIVE FAQ -->
     <section id="faq" style="margin-bottom: 100px;">
-        <h2 class="section-title">Common Questions</h2>
-        <div class="faq-item">
-            <b>Is this a pirate app?</b>
-            <p style="margin-top:10px; color:var(--text-muted); font-size:14px;">No. OtakuVerse is a library manager and browser wrapper. We don't host any content; we provide a unified interface for the sites you already visit, helping you track progress safely.</p>
-        </div>
-        <div class="faq-item">
-            <b>Is it safe?</b>
-            <p style="margin-top:10px; color:var(--text-muted); font-size:14px;">100%. We are open source on GitHub. You can inspect every line of code. We don't track your data or sell your information.</p>
-        </div>
+      <h2 class="section-title">Common Questions</h2>
+      <div class="faq-item">
+        <b>Is this a pirate app?</b>
+        <p style="color:var(--text-muted); font-size:14px;">No. OtakuVerse is a library manager and browser wrapper. We don't host any content; we provide a unified interface for the sites you already visit, helping you track progress safely.</p>
+      </div>
+      <div class="faq-item">
+        <b>Is it safe?</b>
+        <p style="color:var(--text-muted); font-size:14px;">100%. We are open source on GitHub. You can inspect every line of code. We don't track your data or sell your information.</p>
+      </div>
+      <div class="faq-item">
+        <b>How often is the database updated?</b>
+        <p style="color:var(--text-muted); font-size:14px;">We sync from 4 sources in real-time. New titles and chapters are indexed automatically every 24 hours.</p>
+      </div>
     </section>
 
     <!-- FEEDBACK FORM -->
-    <section id="feedback" class="feedback-form" style="background:var(--surface); padding: 40px; border-radius: 20px; margin-bottom: 100px;">
-        <h2 style="margin-bottom:20px;">Improve the Verse</h2>
-        <form action="https://formspree.io/f/xojgznjr" method="POST">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
-                <input type="text" name="name" placeholder="Name" style="background:var(--bg); border:1px solid #333; padding:15px; border-radius:10px; color:white;" required>
-                <input type="email" name="email" placeholder="Email" style="background:var(--bg); border:1px solid #333; padding:15px; border-radius:10px; color:white;" required>
-            </div>
-            <textarea name="message" placeholder="What should we build next?" style="width:100%; background:var(--bg); border:1px solid #333; padding:15px; border-radius:10px; color:white; height:120px; margin-bottom:20px;" required></textarea>
-            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send to Developer</button>
-        </form>
+    <section id="feedback" class="feedback-form">
+      <h2 style="margin-bottom:20px;">Improve the Verse</h2>
+      <form action="https://formspree.io/f/xojgznjr" method="POST">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:20px;">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <textarea name="message" placeholder="What should we build next?" style="width:100%; height:120px; margin-bottom:20px; resize: vertical;" required></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send to Developer</button>
+      </form>
     </section>
 
   </div>
 
-  <footer style="padding: 60px 0; text-align: center; color: var(--text-muted); font-size: 12px; border-top: 1px solid #111;">
-    <p>© 2024 OtakuVerse Project. Built for the community. 💜</p>
+  <footer>
+    <p>© 2026 OtakuVerse Project. Built for the community. 💜</p>
   </footer>
 
   <script>
     // LIVE COUNT SCRIPT
     async function updateLiveStats() {
       try {
-        const res = await fetch('/api/manga/sources'); // Adjust if your Flask URL is different
+        const res = await fetch('/api/manga/all');
         const data = await res.json();
-        if(data.total_sources) {
-           document.getElementById('mangaCount').innerText = "Dynamic+"; 
+        if(data.length) {
+          document.getElementById('mangaCount').innerText = data.length.toLocaleString();
         }
-      } catch (e) { console.log("Stats fetch skipped locally"); }
+      } catch (e) {
+        console.log("Stats fetch skipped locally");
+      }
     }
     updateLiveStats();
   </script>
